@@ -4,7 +4,7 @@ var THREE = require('three');
 var glslify = require('glslify');
 var Pass = require('../../Pass');
 var vertex = glslify('../../shaders/vertex/basic.glsl');
-var fragment = glslify('./motionblur-fs.glsl');
+var fragment = glslify('./motion-blur-fs.glsl');
 
 function MotionBlur(options) {
 
@@ -14,7 +14,6 @@ function MotionBlur(options) {
   this.params.velocityFactor = 1;
 
   this.params.tDepth = new THREE.Texture(1,1)
-  this.params.tVeloc = new THREE.Texture(1,1)
 
   this.params.viewProjectionInverseMatrix = new THREE.Matrix4()
   this.params.previousViewProjectionMatrix = new THREE.Matrix4()
@@ -34,7 +33,6 @@ MotionBlur.prototype.run = function(composer) {
   this.shader.uniforms.viewProjectionInverseMatrix.value = this.params.viewProjectionInverseMatrix;
   this.shader.uniforms.previousViewProjectionMatrix.value = this.params.previousViewProjectionMatrix;
   this.shader.uniforms.tDepth.value = this.params.tDepth;
-  this.shader.uniforms.tVeloc.value = this.params.tVeloc;
   
   composer.pass(this.shader);
 
