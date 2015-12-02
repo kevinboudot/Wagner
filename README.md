@@ -34,7 +34,7 @@ composer.pass(bloomPass);
 composer.toScreen();
 ```
 
-You need to apply the `glslify` transform to `@superguigui/wagner, to do that instead of applying the transform with `-t` as you would normally do it, use the `-g` flag.
+You need to apply the `glslify` transform to `@superguigui/wagner`, to do that instead of applying the transform with `-t` as you would normally do it, use the `-g` flag.
 ```bash
 browserify index.js -o bundle.js -g glslify
 ```
