@@ -32,5 +32,10 @@
     "raf": "^2.0.4",
     "uglifyjs": "^2.4.10",
     "watchify": "^3.2.1"
+  },
+  "browserify": {
+    "transform": [
+      "glslify"
+    ]
   }
 }
