@@ -9,8 +9,7 @@ var THREE = require('three');
 var glslify = require('glslify');
 var Pass = require('../../Pass');
 
-var HorizontalBlur = require('../horizontalblur/horizontal-blurPass');
-var VerticalBlur = require('../verticalblur/vertical-blurPass');
+var FullBoxBlurPass = require('../box-blur/FullBoxBlurPass');
 
 var vertex = glslify('../../shaders/vertex/basic.glsl');
 var fragment = glslify('./godray-fs.glsl');
@@ -23,11 +22,12 @@ function Godray(options) {
 
   this.setShader(vertex, fragment);
 
-  this.hBlur = new HorizontalBlur();
-  this.vBlur = new VerticalBlur();
+  this.blurPass = new FullBoxBlurPass(2);
 
   this.width = options.width || 512;
   this.height = options.height || 512;
+
+  this.params.blurAmount = options.blurAmount || 2;
 
   this.params.fX = 0.5;
   this.params.fY = 0.5;
@@ -54,10 +54,10 @@ Godray.prototype.run = function(composer) {
   this.shader.uniforms.fWeight.value = this.params.fWeight;
   this.shader.uniforms.fClamp.value = this.params.fClamp;
 
-  composer.pass(this.hBlur)
-  composer.pass(this.vBlur)
-  composer.pass(this.hBlur)
-  composer.pass(this.vBlur)
+  this.blurPass.params.amount = this.params.blurAmount;
+  
+  composer.pass(this.blurPass);
+  composer.pass(this.blurPass);
 
   composer.pass(this.shader);
 
