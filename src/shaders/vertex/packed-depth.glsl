@@ -1,4 +1,5 @@
 varying float depth;
+varying vec2 vUv;
 
 uniform float mNear;
 uniform float mFar;
@@ -10,6 +11,8 @@ void main() {
 
   vec3 vPosition = vec4( modelViewMatrix * vec4( position, 1.0 ) ).xyz;
   gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+	vUv = uv;
 
   depth = -viewPos.z;
 
