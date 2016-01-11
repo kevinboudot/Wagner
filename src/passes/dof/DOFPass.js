@@ -12,10 +12,11 @@ function DOFPass(options) {
 
   this.setShader(vertex, fragment);
 
-  this.params.focalDistance = 0.01;
-  this.params.aperture = .005;
-  this.params.tBias = null;
-  this.params.blurAmount = 1;
+  this.params.focalDistance = options.focalDistance || 0.01;
+  this.params.aperture = options.aperture || .005;
+  this.params.tBias = options.tBias || null;
+  this.params.blurAmount = options.blurAmount || 1;
+
 }
 
 module.exports = DOFPass;
